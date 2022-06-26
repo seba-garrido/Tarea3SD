@@ -1,0 +1,53 @@
+version: '2'
+services:
+  cassandra_nodo1:
+    image: bitnami/cassandra:4.0.4
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra_nodo1,cassandra_nodo2,cassandra_nodo3
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_PASSWORD=tarea3
+    deploy:
+      resources:
+          limits:
+            memory: 2000M
+          reservations:
+            memory: 200M
+
+  cassandra_nodo2:
+    image: bitnami/cassandra:4.0.4
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra_nodo1,cassandra_nodo2,cassandra_nodo3
+      - CASSANDRA_PASSWORD=tarea3
+    deploy:
+      resources:
+          limits:
+            memory: 2000M
+          reservations:
+            memory: 200M
+            
+  cassandra_nodo3:
+    image: bitnami/cassandra:4.0.4
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra_nodo1,cassandra_nodo2,cassandra_nodo3
+      - CASSANDRA_PASSWORD=tarea3
+    deploy:
+      resources:
+          limits:
+            memory: 2000M
+          reservations:
+            memory: 200M
+
+  app:
+    build: ./Api
+    environment:
+      - CASSANDRA_SEEDS=cassandra_nodo1,cassandra_nodo2,cassandra_nodo3
+      - CASSANDRA_PASSWORD=tarea3
+    ports:
+      - "3000:3000"
+    depends_on:
+      - cassandra_nodo1

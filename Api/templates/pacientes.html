@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Tarea 3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/tabla.css">
+</head>
+
+<body>
+    {% block contenido %}
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">Pacientes</h3>
+                <a href="{{url_for('formulario_agregar_producto')}}" class="button is-success">Agregar</a>
+                <table class="table">
+                    <caption> Tabla de pacientes base de datos Cassandra </caption>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Rut</th>
+                            <th>Email</th>
+                            <th>Fecha Nacimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paciente in pacientes %}
+                        <tr>
+                            <td>{{paciente[0]}}</td>
+                            <td>{{paciente[1]}}</td>
+                            <td>{{paciente[2]}}</td>
+                            <td>{{paciente[3]}}</td>
+                            <td>{{paciente[4]}}</td>
+                            <td>{{paciente[5]}}</td>
+                            <td>
+                                <form action="{{url_for('eliminar_producto')}}" method="POST">
+                                    <input type="hidden" name="nombre" value="{{paciente[0]}}">
+                                    <button class="button is-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+</body>
+</html>
