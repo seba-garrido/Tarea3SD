@@ -7,6 +7,16 @@ Sebastian Garrido
 
 Jorge Fernández
 
+## Comanados:
+lo primero es hacer un build del docker-compose:
+- docker-compose build
+En segunda instancia hay que hacer un docker-compose up:
+- docker-compose up --force-recreate
+Porsterior a esto se puede revisar a través de la consola que estos contenedores se encuentre arriba, como se aprecia en la imagen:
+- Comando: sudo docker ps
+![image](https://user-images.githubusercontent.com/70417046/175835041-787cc6da-87ac-4ec4-950f-ac51292f800e.png)
+
+
 ## Preguntas:
 
 
